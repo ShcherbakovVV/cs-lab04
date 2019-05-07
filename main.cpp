@@ -11,6 +11,13 @@ char nibble_to_hex(uint8_t i)
     return digits[i];
 }
 
+char bit_digit(uint8_t byte, uint8_t bit)
+{
+    if( byte & ( 0x1 << bit ) )
+        return '1';
+    return '0';
+}
+
 void print_in_hex(uint8_t byte)
 {
     cout << nibble_to_hex(byte >> 4)
@@ -30,24 +37,17 @@ void print_in_hex(const void* data, size_t datasize)
     }
 }
 
+void print_in_binary(uint8_t byte)
+{
+    for( int bit = 7; bit >= 0; bit-- )
+        cout << bit_digit(byte, bit);
+}
+
 int main()
 {
-    uint8_t u8 = 0x42;
-    uint16_t u16 = 0x42;
-    uint32_t u32 = 0x42;
-
-    cout << "u8 bytes: ";
-    print_in_hex( &u8, sizeof(u8) );
-    cout << '\n';
-
-    cout << "u16 bytes: ";
-    print_in_hex( &u16, sizeof(u16) );
-    cout << '\n';
-
-    cout << "u32 bytes: ";
-    print_in_hex( &u32, sizeof(u32) );
-    cout << '\n';
-
+    print_in_binary(0xf);
+    print_in_binary(0xaa);
+    print_in_binary(0x0f);
     getch();
     return 0;
 }
