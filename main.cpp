@@ -43,11 +43,36 @@ void print_in_binary(uint8_t byte)
         cout << bit_digit(byte, bit);
 }
 
+void print_in_binary(const void* data, size_t size)
+{
+    const uint8_t* bytes = reinterpret_cast<const uint8_t*>(data);
+    for (size_t i = 0; i < size; i++)
+    {
+        print_in_binary(bytes[i]);
+        if ( (i + 1) % 4 == 0 )
+            cout << '\n';
+        else
+            cout << ' ';
+    }
+}
+
 int main()
 {
-    print_in_binary(0xf);
-    print_in_binary(0xaa);
-    print_in_binary(0x0f);
+    uint8_t u8 = 42;
+    cout << "u8 bytes: ";
+    print_in_binary(&u8, sizeof(u8));
+    cout << '\n';
+
+    uint16_t u16 = 42;
+    cout << "u16 bytes: ";
+    print_in_binary(&u16, sizeof(u16));
+    cout << '\n';
+
+    uint32_t u32 = 42;
+    cout << "u32 bytes: ";
+    print_in_binary(&u32, sizeof(u32));
+    cout << '\n';
+
     getch();
     return 0;
 }
