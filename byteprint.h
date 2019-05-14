@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cassert>
+#include <cstring>
 
 char nibble_to_hex(uint8_t i);
 char bit_digit(uint8_t byte, uint8_t bit);
