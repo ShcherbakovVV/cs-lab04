@@ -54,8 +54,6 @@ int main()
             }
         }
 
-        puts(filename);
-
         FILE* file = fopen( filename, "r" );
         if( file == nullptr ) {
             cout << "Invalid file name";
@@ -67,8 +65,7 @@ int main()
         char* filedata = new char[filesize];
         rewind( file );
         fread( filedata, 1, filesize, file );
-        char* fldt = filedata;
-        fldt[filesize  ] = '\0';
+        filedata[filesize] = '\0';
 
         char STR[MAX_SIZE];
         cout << "Enter string: ";
@@ -77,11 +74,16 @@ int main()
         *( str + strlen(str) - 1 ) = '\0';
 
         int occur = 0;
-        while( strstr( fldt, str ) != nullptr ) {
-            occur ++;
-            fldt = strstr( fldt, str ) + 1;
+        while( *filedata != '\0'  ) {
+           if( strncmp( filedata, str, strlen(str) ) != 0 )
+                filedata += 1;
+           else {
+                occur ++;
+                filedata += 1;
+           }
         }
         cout << "Occurance number: " << occur;
+
         delete[] filedata;
         fclose( file );
         break;
